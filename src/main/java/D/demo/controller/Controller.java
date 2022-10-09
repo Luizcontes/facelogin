@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 
 @RestController
-@RequestMapping(value = "/api")
+@RequestMapping(value = "/ofertas")
 @Api(value="API REST Produtos")
 @CrossOrigin(origins = "*")
 public class Controller {
@@ -28,10 +28,12 @@ public class Controller {
     @Autowired
     ProdutoRepository produtoRepository;
 
-    @GetMapping(value = "/produtos")
+    @GetMapping(value = "")
     @ApiOperation(value="Retorna uma lista de produto")
-    public List<Produto> listaProdutos() {
-        return produtoRepository.findAll();
+    public String listaProdutos() {
+        System.out.println("aqui");
+        return "Get every turistc package";
+        // return produtoRepository.findAll();
     }
 
     @GetMapping("/produto/{id}")
