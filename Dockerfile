@@ -8,6 +8,6 @@ COPY . .
 
 # EXPOSE 5432
 
-CMD ["java", "-jar", "demo-0.0.1-SNAPSHOT.jar"]
+CMD ["java", "-Dserver.port=$PORT", "$JAVA_OPTS", "-jar", "demo-0.0.1-SNAPSHOT.jar"]
 
 RUN ls -l
