@@ -4,7 +4,7 @@ WORKDIR /app
 
 # COPY /target/demo-0.0.1-SNAPSHOT.jar .
 
-COPY . target/
+COPY . .
 
 # EXPOSE 5432
 
