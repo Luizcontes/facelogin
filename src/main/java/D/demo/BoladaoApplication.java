@@ -10,7 +10,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class BoladaoApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(BoladaoApplication.class, args);
+	SpringApplication.run(BoladaoApplication.class, args);
 	}
 
 }

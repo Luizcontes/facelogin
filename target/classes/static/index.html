@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        html {
+            width: 960px;
+            margin: 0  auto;
+        }
+
+        label, input {
+            display: block;
+            margin: 5px
+        }
+        h1 {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>Hello world!!!!!!</h1>
+    <p>To get all records: "<a href="https://contes-toten-api.herokuapp.com/passeio/getall">https://contes-toten-api.herokuapp.com/passeio/getall</a>"</p>
+    <p>To get a record image: "https://contes-toten-api.herokuapp.com/passeio/get/:id"</p>
+    <br><br>
+    <form action="/passeio/save" method="POST" enctype="multipart/form-data" class="cadastro-passseio">
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name">
+        
+        <label for="quantidade">Quantidade</label>
+        <input type="number" id="quantidade" name="quantidade">
+        
+        <label for="price">Valor</label>
+        <input type="number" id="price" name="price">
+        
+        <label for="image">Imagem</label>
+        <input type="file" id="image" name="image">
+
+        <input type="submit" id="button" name="button" value="Submit">
+    </form>
+    <script src="./js/passeio.js"></script>
+</body>
+</html>
