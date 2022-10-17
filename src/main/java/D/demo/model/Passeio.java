@@ -24,7 +24,7 @@ public class Passeio implements Serializable {
 
     private String nome;
 
-    private int quantidade;
+    private String local;
 
     private Double valor;
 
@@ -61,17 +61,17 @@ public class Passeio implements Serializable {
     }
 
     /**
-     * @return BigDecimal return the quantidade
+     * @return String return the local
      */
-    public int getQuantidade() {
-        return quantidade;
+    public String getLocal() {
+        return local;
     }
 
     /**
-     * @param quantidade the quantidade to set
+     * @param local
      */
-    public void setQuantidade(int quantidade) {
-        this.quantidade = quantidade;
+    public void setLocal(String local) {
+        this.local = local;
     }
 
     /**

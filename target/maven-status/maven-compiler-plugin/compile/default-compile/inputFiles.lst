@@ -1,8 +1,8 @@
-/home/luiz/Estudos/apiRestSpringboot/src/main/java/D/demo/BoladaoApplication.java
-/home/luiz/Estudos/apiRestSpringboot/src/main/java/D/demo/service/PasseioServiceImpl.java
-/home/luiz/Estudos/apiRestSpringboot/src/main/java/D/demo/ServletInitializer.java
-/home/luiz/Estudos/apiRestSpringboot/src/main/java/D/demo/config/SwaggerConfig.java
-/home/luiz/Estudos/apiRestSpringboot/src/main/java/D/demo/controller/Controller.java
-/home/luiz/Estudos/apiRestSpringboot/src/main/java/D/demo/service/PasseioService.java
-/home/luiz/Estudos/apiRestSpringboot/src/main/java/D/demo/repository/PasseioRepository.java
-/home/luiz/Estudos/apiRestSpringboot/src/main/java/D/demo/model/Passeio.java
+/home/luiz/Estudos/toten-java-ofertas/src/main/java/D/demo/service/PasseioServiceImpl.java
+/home/luiz/Estudos/toten-java-ofertas/src/main/java/D/demo/BoladaoApplication.java
+/home/luiz/Estudos/toten-java-ofertas/src/main/java/D/demo/model/Passeio.java
+/home/luiz/Estudos/toten-java-ofertas/src/main/java/D/demo/config/SwaggerConfig.java
+/home/luiz/Estudos/toten-java-ofertas/src/main/java/D/demo/ServletInitializer.java
+/home/luiz/Estudos/toten-java-ofertas/src/main/java/D/demo/controller/Controller.java
+/home/luiz/Estudos/toten-java-ofertas/src/main/java/D/demo/service/PasseioService.java
+/home/luiz/Estudos/toten-java-ofertas/src/main/java/D/demo/repository/PasseioRepository.java

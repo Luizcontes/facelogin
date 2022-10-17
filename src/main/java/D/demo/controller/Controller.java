@@ -100,7 +100,7 @@ public class Controller {
 
     @PostMapping(value = "/save")
     public @ResponseBody ResponseEntity<?> createEmpoyee(@RequestParam("name") String name,
-        @RequestParam("price") double price, @RequestParam("quantidade") int quantidade, Model model,
+        @RequestParam("price") double price, @RequestParam("local") String local, Model model,
         HttpServletRequest request, final @RequestParam("image") MultipartFile file) {
 
         // System.out.println("Price: " + price);
@@ -143,7 +143,7 @@ public class Controller {
             passeio.setNome(names[0]);
             passeio.setImage(imageData);
             passeio.setValor(price);
-            passeio.setQuantidade(quantidade);
+            passeio.setLocal(local);
             passeioService.savePasseio(passeio);
             // log.info("HttpStatus===" + new ResponseEntity<>(HttpStatus.OK));
             return new ResponseEntity<>("Product Saved With File - " + fileName,
@@ -170,7 +170,8 @@ public class Controller {
     
     @GetMapping("/getall")
 	List<Passeio> show(Model map) {
-		List<Passeio> passeios = passeioService.getAllPasseios();
+        List<Passeio> passeios = passeioService.getAllPasseios();
+        System.out.println(passeios);
 	
         // map.addAttribute("passeios", passeios);
         
