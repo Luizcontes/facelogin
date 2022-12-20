@@ -7,10 +7,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 // @EnableAutoConfiguration(exclude = {DataSourceAutoConfiguration.class})
-public class BoladaoApplication {
+public class Ofertas {
 
 	public static void main(String[] args) {
-	SpringApplication.run(BoladaoApplication.class, args);
+	SpringApplication.run(Ofertas.class, args);
 	}
 
 }

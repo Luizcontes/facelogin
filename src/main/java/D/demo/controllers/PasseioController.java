@@ -1,4 +1,4 @@
-package D.demo.controller;
+package D.demo.controllers;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -27,21 +27,26 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import D.demo.model.Passeio;
+import D.demo.models.Passeio;
+import D.demo.models.PasseioDTO;
 import D.demo.repository.PasseioRepository;
+import D.demo.service.PasseioService;
 
 import org.springframework.web.bind.annotation.PostMapping;
 
 @RestController
 @RequestMapping(value = "")
 @CrossOrigin(origins = "*")
-public class Controller {
+public class PasseioController {
 
-    @Value("${uploadDir}")
+    @Value("/resources")
     private String uploadFolder;
 
     @Autowired
     PasseioRepository passeioRepository;
+
+    @Autowired
+    PasseioService passeioService;
 
     @PostMapping(value = "/save")
     public @ResponseBody ResponseEntity<?> createEmpoyee(@RequestParam("name") String name,
@@ -80,31 +85,26 @@ public class Controller {
             passeio.setValor(price);
             passeio.setLocal(local);
             passeioRepository.save(passeio);
-            
-            return new ResponseEntity<>("Product Saved With File - " + fileName,HttpStatus.OK);
+
+            return new ResponseEntity<>("Product Saved With File - " + fileName, HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
-           
+
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
 
     @GetMapping("/get/{id}")
     @ResponseBody
-    void showImage(@PathVariable("id") UUID id,
+    void returnImage(@PathVariable("id") UUID id,
             HttpServletResponse response,
             Optional<Passeio> passeio) throws ServletException, IOException {
 
-        passeio = passeioRepository.findById(id);
-        response.setContentType("image/jpeg, image/jpg, image/png, image/gif");
-        response.getOutputStream().write(passeio.get().getImage());
-        response.getOutputStream().close();
+        passeioService.getImage(id, response, passeio);
     }
 
     @GetMapping("/get")
-    List<Passeio> show() {
-        List<Passeio> passeios = passeioRepository.findAll();
-
-        return passeios;
+    List<PasseioDTO> getAllInfo() {
+        return passeioService.getAllUserInfo();
     }
 }

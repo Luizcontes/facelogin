@@ -1,6 +1,0 @@
-COLUNAS
-
-imagem
-titulo
-localizazao
-preco

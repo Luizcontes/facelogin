@@ -1,2 +1,0 @@
-DROP DATABASE IF EXISTS passeios;
-CREATE DATABASE passeios;
