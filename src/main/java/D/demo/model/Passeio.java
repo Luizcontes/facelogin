@@ -1,11 +1,11 @@
 package D.demo.model;
 
 import java.io.Serializable;
+import java.util.UUID;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.Table;
@@ -14,13 +14,12 @@ import javax.persistence.Table;
 @Table(name = "passeios")
 public class Passeio implements Serializable {
 
-    // setting the model - 5:22
-
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    @GeneratedValue()
+    @org.hibernate.annotations.Type(type="org.hibernate.type.UUIDCharType")
+    private UUID id;
 
     private String nome;
 
@@ -32,17 +31,21 @@ public class Passeio implements Serializable {
     @Column(name = "image", length = Integer.MAX_VALUE, nullable = true)
     private byte[] image;
 
+
+    public Passeio() {
+    }
+
     /**
      * @return long return the id
      */
-    public long getId() {
+    public UUID getId() {
         return id;
     }
 
     /**
      * @param id the id to set
      */
-    public void setId(long id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 
