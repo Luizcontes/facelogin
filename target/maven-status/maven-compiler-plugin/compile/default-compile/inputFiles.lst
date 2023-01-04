@@ -1,8 +1,9 @@
 /home/luiz/Estudos/toten-java-ofertas/src/main/java/D/demo/models/Passeio.java
+/home/luiz/Estudos/toten-java-ofertas/src/main/java/D/demo/models/PasseioProjection.java
 /home/luiz/Estudos/toten-java-ofertas/src/main/java/D/demo/controllers/PasseioController.java
+/home/luiz/Estudos/toten-java-ofertas/src/main/java/D/demo/repositories/PasseioRepository.java
 /home/luiz/Estudos/toten-java-ofertas/src/main/java/D/demo/models/PasseioDTO.java
+/home/luiz/Estudos/toten-java-ofertas/src/main/java/D/demo/services/PasseioService.java
 /home/luiz/Estudos/toten-java-ofertas/src/main/java/D/demo/Ofertas.java
 /home/luiz/Estudos/toten-java-ofertas/src/main/java/D/demo/config/SwaggerConfig.java
-/home/luiz/Estudos/toten-java-ofertas/src/main/java/D/demo/ServletInitializer.java
-/home/luiz/Estudos/toten-java-ofertas/src/main/java/D/demo/service/PasseioService.java
-/home/luiz/Estudos/toten-java-ofertas/src/main/java/D/demo/repository/PasseioRepository.java
+/home/luiz/Estudos/toten-java-ofertas/src/main/java/D/demo/config/ServletInitializer.java

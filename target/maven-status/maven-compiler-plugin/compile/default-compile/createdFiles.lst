@@ -1,7 +1,8 @@
-D/demo/repository/PasseioRepository.class
+D/demo/Ofertas.class
+D/demo/models/PasseioProjection.class
+D/demo/config/ServletInitializer.class
+D/demo/repositories/PasseioRepository.class
+D/demo/services/PasseioService.class
 D/demo/models/Passeio.class
 D/demo/controllers/PasseioController.class
-D/demo/service/PasseioService.class
-D/demo/ServletInitializer.class
-D/demo/Ofertas.class
 D/demo/models/PasseioDTO.class
