@@ -1,7 +1,9 @@
-package D.demo.models;
+package D.demo.modelsDTO;
 
 import java.io.Serializable;
 import java.util.UUID;
+
+import D.demo.models.Localidade;
 
 public class PasseioDTO implements Serializable {
 
@@ -9,14 +11,14 @@ public class PasseioDTO implements Serializable {
 
     private String nome;
 
-    private String local;
+    private Localidade local;
 
     private Double valor;
 
     public PasseioDTO() {
     }
 
-    public PasseioDTO(UUID id, String nome, String local, Double valor) {
+    public PasseioDTO(UUID id, String nome, Localidade local, Double valor) {
         this.id = id;
         this.nome = nome;
         this.local = local;
@@ -39,11 +41,11 @@ public class PasseioDTO implements Serializable {
         this.nome = nome;
     }
 
-    public String getLocal() {
+    public Localidade getLocal() {
         return local;
     }
 
-    public void setLocal(String local) {
+    public void setLocal(Localidade local) {
         this.local = local;
     }
 
@@ -54,7 +56,4 @@ public class PasseioDTO implements Serializable {
     public void setValor(Double valor) {
         this.valor = valor;
     }
-
-  
-
 }
