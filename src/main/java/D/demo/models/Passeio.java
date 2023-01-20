@@ -53,17 +53,11 @@ public class Passeio implements Serializable {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "categoria_id", nullable = false)
+    @JsonIgnore
     private Categoria categoria;
 
     @OneToMany(mappedBy = "passeio", cascade = CascadeType.PERSIST, orphanRemoval = true)
-    // @JsonIgnore
     private List<Foto> fotos = new ArrayList<>();
-
-    // @Lob
-    // @Column(name = "image", length = Integer.MAX_VALUE, nullable = true)
-    // private byte[] image;
-
-    // private List<byte[]> images;
 
     public Passeio() {}
 

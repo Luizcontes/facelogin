@@ -1,0 +1,10 @@
+spring:
+  config:
+    import: optional:file:.env[.properties]
+  application:
+    name: passeio-service
+  profiles:
+    active: ${PROFILE}
+  cloud:
+    config:
+      uri: http://configserver-env.eba-esnkndxk.us-east-1.elasticbeanstalk.com/

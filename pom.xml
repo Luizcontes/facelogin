@@ -7,53 +7,72 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.7.6</version>
+		<version>2.7.8</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 
 	<groupId>1D</groupId>
 	<artifactId>entertours</artifactId>
 	<version>0.1.0</version>
-	<name>Ofertas</name>
+	<name>Passeio</name>
 	<description>Servico a cargo de armazenar as ofertas de passeios</description>
 	<packaging>jar</packaging>
+	
 	<properties>
 		<java.version>17</java.version>
+		<spring-cloud.version>2021.0.5</spring-cloud.version>
 	</properties>
 
 	<dependencies>
 
+		<!-- STARTER BOOTSTRAP ALLOWS THE FETCH OF boostrap.yml CONFIG FILE -->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-bootstrap</artifactId>
+		</dependency>
+
+		<!-- CONFIG CLIENT FOR RETRIEVING CONFIGURATION AT SERVICE STARTUP -->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-config</artifactId>
+		</dependency>
+
+		<!-- DATABASE CONECTOR -->
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 			<version>8.0.31</version>
 		</dependency>
 
+		<!-- DATA JPA TO PERSIST DATA IN THE DB -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
 
+		<!-- STARTER WEB TO PROVIDE WEB SERVICE API -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 
+		<!-- ACTUATOR TO MONITOR THE APPLICATION HEALTH -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-actuator</artifactId>
 		</dependency>
 
+		<!-- STARTER TEST TO PERFORM SOME UNIT TESTS -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
 
-		<dependency>
+		<!-- <dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>jstl</artifactId>
-		</dependency>
+		</dependency> -->
 
 		<!-- LIBRARY USED TO VALIDATE USER INPUT -->
 		<dependency>
@@ -61,13 +80,44 @@
 			<artifactId>spring-boot-starter-validation</artifactId>
 		</dependency>
 
+		<!-- DEVTOOLS FOR HOT RELOAD AND QUICKER REFRESH -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
 	</dependencies>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-dependencies</artifactId>
+				<version>${spring-cloud.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+
+			<!-- <dependency>
+				<groupId>io.github.resilience4j</groupId>
+				<artifactId>resilience4j-bom</artifactId>
+				<version>${resilience4j.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			  </dependency> -->
+
+		</dependencies>
+	</dependencyManagement>
 
 	<build>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<excludeDevtools>true</excludeDevtools>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>

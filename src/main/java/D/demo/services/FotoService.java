@@ -1,18 +1,22 @@
 package D.demo.services;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.UUID;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletResponse;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ContentDisposition;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.server.ResponseStatusException;
+
 
 import D.demo.models.Foto;
 import D.demo.models.Passeio;
@@ -27,37 +31,53 @@ public class FotoService {
     @Autowired
     PasseioService passeioService;
 
-    public List<Foto> getAll() {
-        return fotoRepository.findAll();
+    public ResponseEntity<?> getFotoByUUID(String uuid) {
+
+        Optional<Foto> opt = fotoRepository.findById(UUID.fromString(uuid));
+
+        if(opt.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+
+        Foto foto = opt.get();
+
+        // return new ByteArrayResource(opt.get().getImage());
+        return ResponseEntity.ok()
+            .contentLength(foto.getImage().length)
+            .header(HttpHeaders.CONTENT_DISPOSITION, 
+                        ContentDisposition.attachment()
+                            .filename(foto.getName())
+                            .build().toString())
+            .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_OCTET_STREAM_VALUE)
+            .header(HttpHeaders.ACCEPT_RANGES, "byte")
+            .header(HttpHeaders.CONNECTION, "keep-alive")
+            .body(foto.getImage());
     }
 
-    public String save(MultipartFile[] images, String passeioId) throws IOException{
+    public List<String> save(MultipartFile[] images, String passeioId) throws IOException{
 
         Optional<Passeio> passeio = passeioService.getPasseio(passeioId);
+        List<String> imagesName = new ArrayList<>();
 
         if (passeio.isEmpty()) {
             throw new NoSuchElementException("Record not found for passeio id in the database");
         }
 
         for (MultipartFile image : images) {
-            Foto foto = new Foto(image.getBytes(), passeio.get());
+            Foto foto = new Foto();
+
+            imagesName.add(image.getOriginalFilename());
+
+            System.out.println(image.getContentType());
+
+            foto.setName(image.getOriginalFilename());
+            foto.setImage(image.getBytes());
+            foto.setPasseio(passeio.get());
             fotoRepository.save(foto);
         }
 
         passeioService.save(passeio.get());
         
-        return "blablbla";
+        return imagesName;
     }
-
-    // @ResponseBody
-    // public void getImage(UUID id,
-    //         HttpServletResponse response,
-    //         Optional<Passeio> passeio) throws ServletException, IOException {
-
-    //     passeio = fotoRepository.findById(id);
-    //     response.setContentType("image/jpeg, image/jpg, image/png, image/gif");
-    //     // response.getOutputStream().write(passeio.get().getImage());
-    //     response.getOutputStream().close();
-    // }
-    
 }
