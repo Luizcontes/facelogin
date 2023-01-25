@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,13 +19,14 @@ import D.demo.services.LocalidadeService;
 
 @RestController
 @RequestMapping(value = "/localidade")
+@CrossOrigin(origins = "*")
 public class LocalidadeController {
 
     @Autowired
     LocalidadeService localidadeService;
     
     @GetMapping
-    public List<Localidade> findAllLocalidade() {
+    public ResponseEntity<?> findAllLocalidade() {
 
         return localidadeService.findAll();
     }

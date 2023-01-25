@@ -6,10 +6,15 @@ import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
+import D.demo.controllers.FotoController;
 import D.demo.models.Categoria;
+import D.demo.models.Foto;
 import D.demo.models.Localidade;
 import D.demo.models.Passeio;
 import D.demo.models.Summary;
@@ -31,6 +36,10 @@ public class PasseioService {
     @Autowired
     LocalidadeService localidadeService;
 
+    @Lazy
+    @Autowired
+    FotoService fotoService;
+
     public List<Summary> getAll() {
         return summaryRepositoriy.findAll();
     }
@@ -49,38 +58,80 @@ public class PasseioService {
         return passeioRepository.save(passeio);
     }
 
-    public Passeio save(ObjectNode passeio) {
+    // public Passeio save(ObjectNode passeio) {
 
-        Optional<Categoria> optCategoria = categoriaService.findById(UUID.fromString(passeio
-                .findValue("categoria").asText()));
+    //     Optional<Categoria> optCategoria = categoriaService.findById(UUID.fromString(passeio
+    //             .findValue("categoria").asText()));
+
+    //     if (optCategoria.isEmpty()) {
+    //         throw new NoSuchElementException("Record not found for categoria id in the database");
+    //     }
+    //     Categoria categoria = optCategoria.get();
+
+    //     Optional<Localidade> optLocalidade = localidadeService.findById(UUID.fromString(passeio
+    //             .findValue("local").asText()));
+
+    //     if (optLocalidade.isEmpty()) {
+    //         throw new NoSuchElementException("Record not found for localidade id in the database");
+    //     }
+    //     Localidade localidade = optLocalidade.get();
+
+    //     Passeio novoPasseio = new Passeio();
+
+    //     novoPasseio.setNome(passeio.findValue("nome").asText());
+    //     novoPasseio.setValor(passeio.findValue("valor").asDouble());
+    //     novoPasseio.setDuracao(passeio.findValue("duracao").asInt());
+    //     novoPasseio.setDescricao(passeio.findValue("descricao").asText());
+
+    //     novoPasseio.setCategoria(categoria);
+    //     categoriaService.save(categoria);
+
+    //     novoPasseio.setLocal(localidade);
+    //     localidadeService.save(localidade);
+
+    //     return passeioRepository.save(novoPasseio);
+    // }
+
+    public Passeio save(String nome, String valor, String local, String duracao, String descricao, String categoria, MultipartFile images) throws Exception {
+
+        Optional<Categoria> optCategoria = categoriaService.findById(UUID.fromString(categoria));
 
         if (optCategoria.isEmpty()) {
             throw new NoSuchElementException("Record not found for categoria id in the database");
         }
-        Categoria categoria = optCategoria.get();
+        Categoria catTemp = optCategoria.get();
 
-        Optional<Localidade> optLocalidade = localidadeService.findById(UUID.fromString(passeio
-                .findValue("local").asText()));
+        Optional<Localidade> optLocalidade = localidadeService.findById(UUID.fromString(local));
 
         if (optLocalidade.isEmpty()) {
             throw new NoSuchElementException("Record not found for localidade id in the database");
         }
-        Localidade localidade = optLocalidade.get();
+        Localidade localTemp = optLocalidade.get();
 
         Passeio novoPasseio = new Passeio();
 
-        novoPasseio.setNome(passeio.findValue("nome").asText());
-        novoPasseio.setValor(passeio.findValue("valor").asDouble());
-        novoPasseio.setDuracao(passeio.findValue("duracao").asInt());
-        novoPasseio.setDescricao(passeio.findValue("descricao").asText());
+        novoPasseio.setNome(nome);
+        novoPasseio.setValor(Double.parseDouble(valor));
+        novoPasseio.setDuracao(Integer.parseInt(duracao));
+        novoPasseio.setDescricao(descricao);
 
-        novoPasseio.setCategoria(categoria);
-        categoriaService.save(categoria);
+        novoPasseio.setCategoria(catTemp);
+        categoriaService.save(catTemp);
 
-        novoPasseio.setLocal(localidade);
-        localidadeService.save(localidade);
+        novoPasseio.setLocal(localTemp);
+        localidadeService.save(localTemp);
 
-        return passeioRepository.save(novoPasseio);
+        Foto foto = new Foto();
+
+        foto.setName(images.getOriginalFilename());
+        foto.setImage(images.getBytes());
+        foto.setPasseio(novoPasseio);
+        
+        Passeio res = passeioRepository.save(novoPasseio);
+
+        fotoService.save(foto);
+        
+        return res;
     }
 
     // public @ResponseBody ResponseEntity<?> creatTour(String name,

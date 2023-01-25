@@ -24,9 +24,9 @@ public class LocalidadeService {
     @Autowired
     LocalidadeRepository localidadeRepository;
 
-    public List<Localidade> findAll() {
+    public ResponseEntity<?> findAll() {
 
-        return localidadeRepository.findAll();
+        return ResponseEntity.ok(localidadeRepository.findAll());
     }
 
     public Optional<Localidade> findById(UUID id) {

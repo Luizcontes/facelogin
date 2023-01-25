@@ -2,7 +2,6 @@ D/demo/Ofertas.class
 D/demo/repositories/LocalidadeRepository.class
 D/demo/repositories/PasseioRepository.class
 D/demo/controllers/CategoriaController.class
-D/demo/services/PasseioService.class
 D/demo/repositories/FotoRepository.class
 D/demo/models/Categoria.class
 D/demo/models/Foto.class
@@ -16,6 +15,4 @@ D/demo/repositories/ReadOnlyRepository.class
 D/demo/controllers/PasseioController.class
 D/demo/models/Localidade.class
 D/demo/repositories/SummaryRepository.class
-D/demo/controllers/FotoController.class
 D/demo/models/Summary.class
-D/demo/services/FotoService.class
