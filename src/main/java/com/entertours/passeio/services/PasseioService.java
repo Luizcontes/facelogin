@@ -52,9 +52,9 @@ public class PasseioService {
 
     public Optional<Passeio> getPasseio(String id) {
 
-        Day day = calendarFeignService.getDays();
+        // Day day = calendarFeignService.getDays();
 
-        System.out.println(day.getDia());
+        // System.out.println(day.getDia());
         
         return passeioRepository.findById(UUID.fromString(id));
     }
