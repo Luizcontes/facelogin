@@ -11,10 +11,10 @@
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 
-	<groupId>1D</groupId>
-	<artifactId>entertours</artifactId>
+	<groupId>com.entertours</groupId>
+	<artifactId>passeio</artifactId>
 	<version>0.1.0</version>
-	<name>Passeio</name>
+	<name>passeio-service</name>
 	<description>Servico a cargo de armazenar as ofertas de passeios</description>
 	<packaging>jar</packaging>
 	
@@ -35,6 +35,24 @@
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-config</artifactId>
+		</dependency>
+
+		<!-- SERVICE DISCOVERY CLIENT EUREKA -->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+		</dependency>
+
+		<!-- CLIENT LOAD BALANCER + INSTANCES RESOLVER PACKAGES -->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-loadbalancer</artifactId>
+		</dependency>
+
+		<!-- OPENFEIGN MANAGES SERVICE FETCHING DATA -->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-openfeign</artifactId>
 		</dependency>
 
 		<!-- DATABASE CONECTOR -->
