@@ -2,7 +2,6 @@ package com.entertours.passeio.models;
 
 import java.time.LocalTime;
 
-import javax.persistence.Entity;
 
 public class Horario {
     

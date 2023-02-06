@@ -59,7 +59,7 @@ public class PasseioController {
         @RequestParam String duracao,
         @RequestParam String descricao,
         @RequestParam String categoria,
-        MultipartFile images) throws Exception{
+        MultipartFile[] images) throws Exception{
 
             passeioService.save(nome, valor, local, duracao, descricao, categoria, images);
 
