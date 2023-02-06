@@ -1,7 +1,7 @@
 package com.entertours.passeio.models;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 
 import org.hibernate.annotations.Immutable;
 import org.hibernate.annotations.Subselect;

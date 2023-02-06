@@ -27,7 +27,7 @@ public class CategoriaService {
         return ResponseEntity.ok(categoriaRepository.findAll());
     }
 
-    public Optional<Categoria> findById(UUID id) {
+    public Optional<Categoria> findById(String id) {
 
         return categoriaRepository.findById(id);
     }
@@ -53,7 +53,7 @@ public class CategoriaService {
 
     public ResponseEntity<?> getIconImg(String uuid) {
 
-        Optional<Categoria> opt = categoriaRepository.findById(UUID.fromString(uuid));
+        Optional<Categoria> opt = categoriaRepository.findById(uuid);
 
         if(opt.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);

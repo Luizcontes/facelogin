@@ -16,6 +16,8 @@ import com.entertours.passeio.models.Passeio;
 import com.entertours.passeio.models.Summary;
 import com.entertours.passeio.services.PasseioService;
 
+import jakarta.servlet.http.HttpServletRequest;
+
 import org.springframework.web.bind.annotation.PostMapping;
 
 @RestController
@@ -59,7 +61,7 @@ public class PasseioController {
         @RequestParam String duracao,
         @RequestParam String descricao,
         @RequestParam String categoria,
-        MultipartFile[] images) throws Exception{
+        HttpServletRequest images) throws Exception{
 
             passeioService.save(nome, valor, local, duracao, descricao, categoria, images);
 

@@ -1,9 +1,12 @@
 package com.entertours.passeio.services;
 
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Optional;
+import java.util.Set;
 import java.util.UUID;
 
 import java.io.IOException;
@@ -12,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.entertours.passeio.models.Categoria;
 import com.entertours.passeio.models.Foto;
@@ -20,6 +24,8 @@ import com.entertours.passeio.models.Passeio;
 import com.entertours.passeio.models.Summary;
 import com.entertours.passeio.repositories.PasseioRepository;
 import com.entertours.passeio.repositories.SummaryRepository;
+
+import jakarta.servlet.http.HttpServletRequest;
 
 @Service
 public class PasseioService {
@@ -58,7 +64,7 @@ public class PasseioService {
 
         // System.out.println(day.getDia());
 
-        return passeioRepository.findById(UUID.fromString(id));
+        return passeioRepository.findById(id);
     }
 
     public Passeio save(Passeio passeio) {
@@ -104,16 +110,16 @@ public class PasseioService {
     // }
 
     public Passeio save(String nome, String valor, String local, String duracao, String descricao, String categoria,
-            MultipartFile[] images) throws Exception {
+            HttpServletRequest images) throws Exception {
 
-        Optional<Categoria> optCategoria = categoriaService.findById(UUID.fromString(categoria));
+        Optional<Categoria> optCategoria = categoriaService.findById(categoria);
 
         if (optCategoria.isEmpty()) {
             throw new NoSuchElementException("Record not found for categoria id in the database");
         }
         Categoria catTemp = optCategoria.get();
 
-        Optional<Localidade> optLocalidade = localidadeService.findById(UUID.fromString(local));
+        Optional<Localidade> optLocalidade = localidadeService.findById(local);
 
         if (optLocalidade.isEmpty()) {
             throw new NoSuchElementException("Record not found for localidade id in the database");
@@ -133,25 +139,42 @@ public class PasseioService {
         novoPasseio.setLocal(localTemp);
         localidadeService.save(localTemp);
 
-        Arrays.stream(images).forEach(image -> {
+        try {
+            MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) images;
 
-            Foto foto = new Foto();
-
-            try {
-                foto.setName(image.getOriginalFilename());
-                foto.setImage(image.getBytes());
-                foto.setPasseio(novoPasseio);
-                fotoService.save(foto);
-                novoPasseio.addFoto(foto);
-            
-            } catch (IOException e) {
-                System.out.println(e.getCause());
+            Set set = multipartRequest.getFileMap().entrySet();
+            Iterator i = set.iterator();
+            while (i.hasNext()) {
+                Map.Entry me = (Map.Entry) i.next();
+                // String fileName = (String) me.getKey() + "_" + System.currentTimeMillis();
+                MultipartFile multipartFile = (MultipartFile) me.getValue();
+                System.out.println("Original fileName - " + multipartFile.getOriginalFilename());
+                System.out.println(multipartFile.getSize());
+                // System.out.println("fileName - " + fileName);
+                // saveImage(fileName, multipartFile);
             }
-        });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
-        Passeio res = passeioRepository.save(novoPasseio);
+        // Foto foto = new Foto();
 
-        return res;
+        // try {
+        // foto.setName(image.getOriginalFilename());
+        // foto.setImage(image.getBytes());
+        // foto.setPasseio(novoPasseio);
+        // fotoService.save(foto);
+        // novoPasseio.addFoto(foto);
+
+        // } catch (IOException e) {
+        // System.out.println(e.getCause());
+        // }
+
+        // Passeio res = passeioRepository.save(novoPasseio);
+
+        // return res;
+
+        return null;
     }
 
     // public @ResponseBody ResponseEntity<?> creatTour(String name,

@@ -4,15 +4,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Lob;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
+import org.hibernate.annotations.GenericGenerator;
+
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.Lob;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -21,9 +23,11 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class Categoria {
     
     @Id
-    @GeneratedValue()
-    @org.hibernate.annotations.Type(type="org.hibernate.type.UUIDCharType")
-    private UUID id;
+    @GeneratedValue(generator = "uuid")
+    @GenericGenerator(
+        name = "uui",
+        strategy = "org.hibernate.id.UUIDGenerator")
+    private String id;
 
     @NotNull
     private String catName;
@@ -47,7 +51,7 @@ public class Categoria {
         this.passeios = passeios;
     }
 
-    public UUID getId() {
+    public String getId() {
         return id;
     }
 
