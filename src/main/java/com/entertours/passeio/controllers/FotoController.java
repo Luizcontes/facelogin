@@ -19,7 +19,6 @@ import com.entertours.passeio.services.FotoService;
 
 @RestController
 @RequestMapping(value = "/images")
-// @CrossOrigin(origins = "*")
 public class FotoController {
 
     @Autowired

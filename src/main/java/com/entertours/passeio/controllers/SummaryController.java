@@ -11,7 +11,6 @@ import com.entertours.passeio.repositories.SummaryRepository;
 
 @RestController
 @RequestMapping("/fotoslist")
-// @CrossOrigin(origins = "*")
 public class SummaryController {
     
     @Autowired

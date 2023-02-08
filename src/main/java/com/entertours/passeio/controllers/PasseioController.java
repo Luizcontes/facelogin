@@ -16,13 +16,11 @@ import com.entertours.passeio.models.Passeio;
 import com.entertours.passeio.models.Summary;
 import com.entertours.passeio.services.PasseioService;
 
-import jakarta.servlet.http.HttpServletRequest;
 
 import org.springframework.web.bind.annotation.PostMapping;
 
 @RestController
 @RequestMapping(value = "/passeio")
-// @CrossOrigin(origins = "*")
 public class PasseioController {
 
     @Autowired
@@ -30,6 +28,14 @@ public class PasseioController {
 
     @GetMapping
     public List<Summary> getPasseios() {
+
+        // int dataSize = 1024 * 1024;
+        
+        // System.out.println((Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory()) / dataSize + "MB");
+        // System.out.println(Runtime.getRuntime().freeMemory() / dataSize + "MB");
+        // System.out.println(Runtime.getRuntime().totalMemory() / dataSize + "MB");
+        // System.out.println(Runtime.getRuntime().maxMemory() / dataSize + "MB");
+
         return passeioService.getAll();
     }
 
@@ -53,7 +59,7 @@ public class PasseioController {
     //     return new ResponseEntity<Passeio>(passeioService.save(opt.get()), HttpStatus.OK);
     // }
 
-    @PostMapping()
+    @PostMapping
     public String save(
         @RequestParam String nome,
         @RequestParam String valor,
@@ -61,7 +67,7 @@ public class PasseioController {
         @RequestParam String duracao,
         @RequestParam String descricao,
         @RequestParam String categoria,
-        HttpServletRequest images) throws Exception{
+        MultipartFile images) throws Exception{
 
             passeioService.save(nome, valor, local, duracao, descricao, categoria, images);
 

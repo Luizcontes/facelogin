@@ -7,7 +7,6 @@
 /home/luiz/entertours/passeio-service/src/main/java/com/entertours/passeio/models/Day.java
 /home/luiz/entertours/passeio-service/src/main/java/com/entertours/passeio/repositories/ReadOnlyRepository.java
 /home/luiz/entertours/passeio-service/src/main/java/com/entertours/passeio/models/Categoria.java
-/home/luiz/entertours/passeio-service/src/main/java/com/entertours/passeio/config/ServletInitializer.java
 /home/luiz/entertours/passeio-service/src/main/java/com/entertours/passeio/controllers/CategoriaController.java
 /home/luiz/entertours/passeio-service/src/main/java/com/entertours/passeio/models/Summary.java
 /home/luiz/entertours/passeio-service/src/main/java/com/entertours/passeio/models/Passeio.java
@@ -19,6 +18,7 @@
 /home/luiz/entertours/passeio-service/src/main/java/com/entertours/passeio/repositories/FotoRepository.java
 /home/luiz/entertours/passeio-service/src/main/java/com/entertours/passeio/services/FotoService.java
 /home/luiz/entertours/passeio-service/src/main/java/com/entertours/passeio/models/Horario.java
+/home/luiz/entertours/passeio-service/src/main/java/com/entertours/passeio/config/WebConfig.java
 /home/luiz/entertours/passeio-service/src/main/java/com/entertours/passeio/controllers/LocalidadeController.java
 /home/luiz/entertours/passeio-service/src/main/java/com/entertours/passeio/services/CalendarFeignService.java
 /home/luiz/entertours/passeio-service/src/main/java/com/entertours/passeio/repositories/CategoriaRepository.java

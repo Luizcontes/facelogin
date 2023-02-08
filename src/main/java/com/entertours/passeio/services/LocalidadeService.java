@@ -30,7 +30,7 @@ public class LocalidadeService {
 
     public Optional<Localidade> findById(String id) {
 
-        return localidadeRepository.findById(id);
+        return localidadeRepository.findById(UUID.fromString(id));
     }
 
     public Localidade save(Localidade localidade) {
@@ -53,7 +53,7 @@ public class LocalidadeService {
 
     public ResponseEntity<?> getFotoByUUID(String uuid) {
 
-        Optional<Localidade> opt = localidadeRepository.findById(uuid);
+        Optional<Localidade> opt = localidadeRepository.findById(UUID.fromString(uuid));
 
         if (opt.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);

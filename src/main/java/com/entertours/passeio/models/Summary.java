@@ -7,6 +7,8 @@ import org.hibernate.annotations.Immutable;
 import org.hibernate.annotations.Subselect;
 import org.hibernate.annotations.Synchronize;
 
+import java.util.UUID;
+
 @Entity
 @Immutable
 @Subselect(
@@ -16,7 +18,7 @@ import org.hibernate.annotations.Synchronize;
 public class Summary {
     
     
-    private String id;
+    private UUID id;
     
     private String nome;
     
@@ -27,12 +29,12 @@ public class Summary {
     private String local;
     
     @Id    
-    private String fotoId;
+    private UUID fotoId;
 
     public Summary() {
     }
 
-    public String getId() {
+    public UUID getId() {
         return id;
     }
 
@@ -40,7 +42,7 @@ public class Summary {
         return nome;
     }
 
-    public String getFotoId() {
+    public UUID getFotoId() {
         return fotoId;
     }
 

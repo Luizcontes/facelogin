@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @RestController
 @RequestMapping(value = "/categoria")
-// @CrossOrigin(origins = "*")
 public class CategoriaController {
 
     @Autowired

@@ -9,5 +9,5 @@ public interface SummaryRepository extends ReadOnlyRepository<Summary, UUID>{
     
     List<Summary> findAll();
 
-    Summary findFirstById(String uuid);
+    Summary findFirstById(UUID uuid);
 }

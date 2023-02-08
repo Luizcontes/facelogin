@@ -17,7 +17,6 @@ import com.entertours.passeio.services.LocalidadeService;
 
 @RestController
 @RequestMapping(value = "/localidade")
-// @CrossOrigin(origins = "*")
 public class LocalidadeController {
 
     @Autowired

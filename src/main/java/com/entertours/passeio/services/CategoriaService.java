@@ -29,7 +29,7 @@ public class CategoriaService {
 
     public Optional<Categoria> findById(String id) {
 
-        return categoriaRepository.findById(id);
+        return categoriaRepository.findById(UUID.fromString(id));
     }
 
     public Categoria save(MultipartFile icon, String catName) throws IOException {
@@ -53,7 +53,7 @@ public class CategoriaService {
 
     public ResponseEntity<?> getIconImg(String uuid) {
 
-        Optional<Categoria> opt = categoriaRepository.findById(uuid);
+        Optional<Categoria> opt = findById(uuid);
 
         if(opt.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);

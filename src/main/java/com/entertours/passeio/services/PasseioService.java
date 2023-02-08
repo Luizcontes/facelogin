@@ -1,21 +1,14 @@
 package com.entertours.passeio.services;
 
-import java.util.Arrays;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Optional;
-import java.util.Set;
 import java.util.UUID;
-
-import java.io.IOException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.entertours.passeio.models.Categoria;
 import com.entertours.passeio.models.Foto;
@@ -24,8 +17,8 @@ import com.entertours.passeio.models.Passeio;
 import com.entertours.passeio.models.Summary;
 import com.entertours.passeio.repositories.PasseioRepository;
 import com.entertours.passeio.repositories.SummaryRepository;
-
-import jakarta.servlet.http.HttpServletRequest;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 
 @Service
 public class PasseioService {
@@ -53,18 +46,9 @@ public class PasseioService {
         return summaryRepositoriy.findAll();
     }
 
-    // public Summary getSummaryByTour(@PathVariable("UUID") String uuid) {
-
-    // return summaryRepositoriy.findFirstById(uuid);
-    // }
-
     public Optional<Passeio> getPasseio(String id) {
 
-        // Day day = calendarFeignService.getDays();
-
-        // System.out.println(day.getDia());
-
-        return passeioRepository.findById(id);
+        return passeioRepository.findById(UUID.fromString(id));
     }
 
     public Passeio save(Passeio passeio) {
@@ -110,13 +94,14 @@ public class PasseioService {
     // }
 
     public Passeio save(String nome, String valor, String local, String duracao, String descricao, String categoria,
-            HttpServletRequest images) throws Exception {
+            MultipartFile images) throws Exception {
 
         Optional<Categoria> optCategoria = categoriaService.findById(categoria);
 
         if (optCategoria.isEmpty()) {
             throw new NoSuchElementException("Record not found for categoria id in the database");
         }
+        
         Categoria catTemp = optCategoria.get();
 
         Optional<Localidade> optLocalidade = localidadeService.findById(local);
@@ -139,41 +124,43 @@ public class PasseioService {
         novoPasseio.setLocal(localTemp);
         localidadeService.save(localTemp);
 
-        try {
-            MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) images;
-
-            Set set = multipartRequest.getFileMap().entrySet();
-            Iterator i = set.iterator();
-            while (i.hasNext()) {
-                Map.Entry me = (Map.Entry) i.next();
-                // String fileName = (String) me.getKey() + "_" + System.currentTimeMillis();
-                MultipartFile multipartFile = (MultipartFile) me.getValue();
-                System.out.println("Original fileName - " + multipartFile.getOriginalFilename());
-                System.out.println(multipartFile.getSize());
-                // System.out.println("fileName - " + fileName);
-                // saveImage(fileName, multipartFile);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        // Foto foto = new Foto();
-
         // try {
-        // foto.setName(image.getOriginalFilename());
-        // foto.setImage(image.getBytes());
-        // foto.setPasseio(novoPasseio);
-        // fotoService.save(foto);
-        // novoPasseio.addFoto(foto);
+        //     MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) images;
 
-        // } catch (IOException e) {
-        // System.out.println(e.getCause());
+        //     Set set = multipartRequest.getFileMap().entrySet();
+        //     Iterator i = set.iterator();
+        //     while (i.hasNext()) {
+        //         Map.Entry me = (Map.Entry) i.next();
+        //         // String fileName = (String) me.getKey() + "_" + System.currentTimeMillis();
+        //         MultipartFile multipartFile = (MultipartFile) me.getValue();
+        //         System.out.println("Original fileName - " + multipartFile.getOriginalFilename());
+        //         System.out.println(multipartFile.getSize());
+        //         // System.out.println("fileName - " + fileName);
+        //         // saveImage(fileName, multipartFile);
+        //     }
+        // } catch (Exception e) {
+        //     e.printStackTrace();
         // }
 
-        // Passeio res = passeioRepository.save(novoPasseio);
+        Foto foto = new Foto();
 
-        // return res;
+        foto.setName(images.getOriginalFilename());
+        foto.setImage(images.getBytes());
+        foto.setPasseio(novoPasseio);
+        
+        Passeio res = passeioRepository.save(novoPasseio);
 
+        fotoService.save(foto);
+        
+        novoPasseio.addFoto(foto);
+
+
+        String mockBookingString = "{\"day\":[{\"week\":4,\"hours\":[\"10:00:00\",\"11:00:00\"]},{\"week\":6,\"hours\":[\"09:00:00\",\"10:30:00\"]}]}";
+
+        ObjectNode bookingRules = new ObjectMapper().readValue(mockBookingString, ObjectNode.class);
+        
+        calendarFeignService.createPasseioRule(res.getId().toString(), bookingRules);
+        
         return null;
     }
 
