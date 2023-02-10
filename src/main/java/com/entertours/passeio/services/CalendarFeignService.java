@@ -1,4 +1,4 @@
-package com.entertours.passeio.services;
+/* package com.entertours.passeio.services;
 
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,4 +24,4 @@ public interface CalendarFeignService {
         consumes = "application/json"
     )
     void getPasseioRules(@RequestParam String passeioId);
-}
+} */

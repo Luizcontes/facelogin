@@ -38,22 +38,22 @@
 		</dependency>
 
 		<!-- SERVICE DISCOVERY CLIENT EUREKA -->
-		<dependency>
+		<!-- <dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
-		</dependency>
+		</dependency> -->
 
 		<!-- CLIENT LOAD BALANCER + INSTANCES RESOLVER PACKAGES -->
-		<dependency>
+		<!-- <dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-loadbalancer</artifactId>
 		</dependency>
-
+ -->
 		<!-- OPENFEIGN MANAGES SERVICE FETCHING DATA -->
-		<dependency>
+		<!-- <dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-openfeign</artifactId>
-		</dependency>
+		</dependency> -->
 
 		<!-- DATABASE CONECTOR -->
 		<dependency>

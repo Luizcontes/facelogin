@@ -126,4 +126,8 @@ public class Passeio implements Serializable {
     public void addFoto(Foto foto) {
         this.fotos.add(foto);
     }
+
+    public void setFoto(List<Foto> fotos) {
+        this.fotos = fotos;
+    }
 }

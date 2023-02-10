@@ -58,6 +58,11 @@ public class FotoService {
         return fotoRepository.save(foto);
     }
 
+    public List<Foto> save(List<Foto> fotos) {
+
+        return fotoRepository.saveAll(fotos);
+    }
+
     public List<String> save(MultipartFile[] images, String passeioId) throws IOException{
 
         Optional<Passeio> passeio = passeioService.getPasseio(passeioId);

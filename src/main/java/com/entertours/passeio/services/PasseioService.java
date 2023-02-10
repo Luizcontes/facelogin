@@ -1,5 +1,8 @@
 package com.entertours.passeio.services;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -7,6 +10,7 @@ import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -15,6 +19,7 @@ import com.entertours.passeio.models.Foto;
 import com.entertours.passeio.models.Localidade;
 import com.entertours.passeio.models.Passeio;
 import com.entertours.passeio.models.Summary;
+import com.entertours.passeio.repositories.FotoRepository;
 import com.entertours.passeio.repositories.PasseioRepository;
 import com.entertours.passeio.repositories.SummaryRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -34,16 +39,16 @@ public class PasseioService {
 
     @Autowired
     LocalidadeService localidadeService;
-
+/* 
     @Autowired
-    CalendarFeignService calendarFeignService;
+    CalendarFeignService calendarFeignService; */
 
     @Lazy
     @Autowired
     FotoService fotoService;
 
-    public List<Summary> getAll() {
-        return summaryRepositoriy.findAll();
+    public ResponseEntity<?> getAll() {
+        return ResponseEntity.ok(summaryRepositoriy.findAll()); 
     }
 
     public Optional<Passeio> getPasseio(String id) {
@@ -94,7 +99,7 @@ public class PasseioService {
     // }
 
     public Passeio save(String nome, String valor, String local, String duracao, String descricao, String categoria,
-            MultipartFile images) throws Exception {
+            MultipartFile[] images) throws Exception, IOException {
 
         Optional<Categoria> optCategoria = categoriaService.findById(categoria);
 
@@ -142,26 +147,38 @@ public class PasseioService {
         //     e.printStackTrace();
         // }
 
-        Foto foto = new Foto();
+        List<Foto> fotos = new ArrayList<>();
+        Arrays.stream(images).forEach(i -> {
+            Foto foto = new Foto();
+            
+            foto.setName(i.getOriginalFilename());
+            try {
+                foto.setImage(i.getBytes());
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+            foto.setPasseio(novoPasseio); 
 
-        foto.setName(images.getOriginalFilename());
-        foto.setImage(images.getBytes());
-        foto.setPasseio(novoPasseio);
+            fotos.add(foto);
+
+        });
+        System.out.println(fotos.size());
         
         Passeio res = passeioRepository.save(novoPasseio);
 
-        fotoService.save(foto);
+        fotoService.save(fotos);
         
-        novoPasseio.addFoto(foto);
+        novoPasseio.setFoto(fotos);
 
 
-        String mockBookingString = "{\"day\":[{\"week\":4,\"hours\":[\"10:00:00\",\"11:00:00\"]},{\"week\":6,\"hours\":[\"09:00:00\",\"10:30:00\"]}]}";
+        /* String mockBookingString = "{\"day\":[{\"week\":4,\"hours\":[\"10:00:00\",\"11:00:00\"]},{\"week\":6,\"hours\":[\"09:00:00\",\"10:30:00\"]}]}";
 
         ObjectNode bookingRules = new ObjectMapper().readValue(mockBookingString, ObjectNode.class);
         
-        calendarFeignService.createPasseioRule(res.getId().toString(), bookingRules);
+        calendarFeignService.createPasseioRule(res.getId().toString(), bookingRules); */
         
-        return null;
+        return res;
     }
 
     // public @ResponseBody ResponseEntity<?> creatTour(String name,
