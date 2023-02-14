@@ -10,7 +10,8 @@ import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.client.RestTemplate;
-import com.entertours.passeio.utils.UserContext;
+import org.springframework.http.client.ClientHttpRequestInterceptor;
+
 import com.entertours.passeio.utils.UserContextInterceptor;
 
 
@@ -29,12 +30,11 @@ public class PasseioServiceApplication {
 		};
 	}
 
-	@SuppressWarnings("unchecked")
 	@LoadBalanced
 	@Bean
 	public RestTemplate getRestTemplate() {
 		RestTemplate template = new RestTemplate();
-		List interceptors = template.getInterceptors();
+		List<ClientHttpRequestInterceptor> interceptors = template.getInterceptors();
 		if (interceptors == null) {
 			template.setInterceptors(Collections.singletonList(
 					new UserContextInterceptor()));

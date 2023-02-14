@@ -2,7 +2,9 @@
 /home/luiz/entertours/passeio-service/src/main/java/com/entertours/passeio/PasseioServiceApplication.java
 /home/luiz/entertours/passeio-service/src/main/java/com/entertours/passeio/models/Foto.java
 /home/luiz/entertours/passeio-service/src/main/java/com/entertours/passeio/controllers/FotoController.java
+/home/luiz/entertours/passeio-service/src/main/java/com/entertours/passeio/utils/UserContextFilter.java
 /home/luiz/entertours/passeio-service/src/main/java/com/entertours/passeio/repositories/LocalidadeRepository.java
+/home/luiz/entertours/passeio-service/src/main/java/com/entertours/passeio/utils/UserContextHolder.java
 /home/luiz/entertours/passeio-service/src/main/java/com/entertours/passeio/models/Localidade.java
 /home/luiz/entertours/passeio-service/src/main/java/com/entertours/passeio/models/Day.java
 /home/luiz/entertours/passeio-service/src/main/java/com/entertours/passeio/repositories/ReadOnlyRepository.java
@@ -20,6 +22,8 @@
 /home/luiz/entertours/passeio-service/src/main/java/com/entertours/passeio/models/Horario.java
 /home/luiz/entertours/passeio-service/src/main/java/com/entertours/passeio/config/WebConfig.java
 /home/luiz/entertours/passeio-service/src/main/java/com/entertours/passeio/controllers/LocalidadeController.java
+/home/luiz/entertours/passeio-service/src/main/java/com/entertours/passeio/utils/UserContext.java
 /home/luiz/entertours/passeio-service/src/main/java/com/entertours/passeio/services/CalendarFeignService.java
+/home/luiz/entertours/passeio-service/src/main/java/com/entertours/passeio/utils/UserContextInterceptor.java
 /home/luiz/entertours/passeio-service/src/main/java/com/entertours/passeio/repositories/CategoriaRepository.java
 /home/luiz/entertours/passeio-service/src/main/java/com/entertours/passeio/services/PasseioService.java

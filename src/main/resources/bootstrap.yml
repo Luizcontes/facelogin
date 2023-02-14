@@ -4,7 +4,7 @@ spring:
   application:
     name: passeio-service
   profiles:
-    active: prod
+    active: ${PROFILE}
   cloud:
     config:
       uri: 

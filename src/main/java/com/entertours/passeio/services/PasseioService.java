@@ -18,12 +18,8 @@ import com.entertours.passeio.models.Categoria;
 import com.entertours.passeio.models.Foto;
 import com.entertours.passeio.models.Localidade;
 import com.entertours.passeio.models.Passeio;
-import com.entertours.passeio.models.Summary;
-import com.entertours.passeio.repositories.FotoRepository;
 import com.entertours.passeio.repositories.PasseioRepository;
 import com.entertours.passeio.repositories.SummaryRepository;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 
 @Service
 public class PasseioService {
@@ -155,7 +151,6 @@ public class PasseioService {
             try {
                 foto.setImage(i.getBytes());
             } catch (IOException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
             foto.setPasseio(novoPasseio); 
