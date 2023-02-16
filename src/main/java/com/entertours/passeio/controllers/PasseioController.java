@@ -27,7 +27,7 @@ public class PasseioController {
     @Autowired
     PasseioService passeioService;
 
-    @GetMapping
+    @GetMapping("")
     public ResponseEntity<?> getPasseios() {
 
         return passeioService.getAll();

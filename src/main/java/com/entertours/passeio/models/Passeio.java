@@ -61,7 +61,7 @@ public class Passeio implements Serializable {
     @JsonIgnore
     private Categoria categoria;
 
-    @OneToMany(mappedBy = "passeio", cascade = CascadeType.PERSIST, orphanRemoval = true)
+    @OneToMany(mappedBy = "passeio", fetch = FetchType.EAGER, cascade = CascadeType.PERSIST, orphanRemoval = true)
     private List<Foto> fotos = new ArrayList<>();
 
     public Passeio() {
