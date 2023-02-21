@@ -2,18 +2,14 @@ package com.entertours.passeio;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.Iterator;
 
-import java.io.File;
-import java.io.FileReader;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.cloud.openfeign.EnableFeignClients;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.http.client.ClientHttpRequestInterceptor;
@@ -23,6 +19,9 @@ import com.entertours.passeio.utils.UserContextInterceptor;
 @SpringBootApplication
 @EnableFeignClients
 public class PasseioServiceApplication {
+	
+	@Autowired
+	private ApplicationContext applicationContext;
 
 	public static void main(String[] args) {
 		SpringApplication.run(PasseioServiceApplication.class, args);
@@ -33,30 +32,26 @@ public class PasseioServiceApplication {
 		return args -> {
 			System.out.println(Runtime.getRuntime().freeMemory() / (1024 * 1024) + " MB --> free memory");
 
-			Files.lines(Paths.get("/home/luiz/entertours/.env")).forEach(line -> {
-				String[] props = line.trim().split("=");
-				if (props.length == 2) {
-					System.setProperty(props[0], props[1]);
-					// System.out.println(props[0] + " -> " + props[1]);
-				}
-			});
-
+			String[] beans = applicationContext.getBeanDefinitionNames();
+			for (String bean : beans) {
+				System.out.println(bean);
+			}
 		};
 	}
 
-	@LoadBalanced
-	@Bean
-	public RestTemplate getRestTemplate() {
-		RestTemplate template = new RestTemplate();
-		List<ClientHttpRequestInterceptor> interceptors = template.getInterceptors();
-		if (interceptors == null) {
-			template.setInterceptors(Collections.singletonList(
-					new UserContextInterceptor()));
-		} else {
-			interceptors.add(new UserContextInterceptor());
-			template.setInterceptors(interceptors);
-		}
+	// @LoadBalanced
+	// @Bean
+	// public RestTemplate getRestTemplate() {
+	// 	RestTemplate template = new RestTemplate();
+	// 	List<ClientHttpRequestInterceptor> interceptors = template.getInterceptors();
+	// 	if (interceptors == null) {
+	// 		template.setInterceptors(Collections.singletonList(
+	// 				new UserContextInterceptor()));
+	// 	} else {
+	// 		interceptors.add(new UserContextInterceptor());
+	// 		template.setInterceptors(interceptors);
+	// 	}
 
-		return template;
-	}
+	// 	return template;
+	// }
 }

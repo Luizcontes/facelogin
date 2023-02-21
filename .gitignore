@@ -32,4 +32,8 @@ build/
 ### VS Code ###
 .vscode/
 
+### IGNORE ENVIRONMENT VARIABLES FILES ###
 .env
+
+### SPECIFIC CONFIGURATION FOR WINDOWS ENVIRONMENT ###
+bootstrap.properties
